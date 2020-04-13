@@ -14,35 +14,27 @@ This project is an application of using files in python
 # it returns True  -- else It returns False
 def search_for_id(patient_id):
     result = False
-    record = get_num_records()
-    patient_database = open('patient_database.txt', 'rb')
-    for i in range(0, record):
-        try:
-            patient_info = pickle.load(patient_database)
-            if patient_info['Patient_ID'] == patient_id:
-                result = True
+    patient_database = open('patient_database.txt', 'r')
+    temp = patient_database.readline()
+    patient_database.close()
+    if temp:
+        patient_database = open('patient_database.txt', 'rb')
+        patient_info = pickle.load(patient_database)
+        while patient_info:
+            try:
+                if patient_info['Patient_ID'] == patient_id:
+                    result = True
+                    patient_database.close()
+                    break
+                patient_info = pickle.load(patient_database)
+            except EOFError:
+                patient_database.close()
                 break
-        except EOFError:
-            break
     return result
-#this function sets the number of records that is installed in patient_records_database
-#file to use this in the various operations , when called it increments the record
-# by 1
-def set_num_records(record):
-    num_records = open('patient_records_database.txt','w')
-    record +=1
-    num_records.write(str(record))
-    num_records.close()
-# It retrieves the num of records from patient_recorsa_database.txt file
-def get_num_records():
-    num_records = open('patient_records_database.txt', 'r')
-    record = num_records.readline()
-    num_records.close()
-    return int(record)
+
 
 # add a new patient to the database
 def add_patient():
-    record = get_num_records()
     patient_database = open('patient_database.txt', 'ab')
     patient_info = dict()
     print('Add a New Patient :')
@@ -64,32 +56,31 @@ def add_patient():
     if not patient_id:
         pickle.dump(patient_info,patient_database)
         patient_database.close()
-        set_num_records(record)
 
 #delete a patient from the database
 def delete_patient(patient_id):
-    record = get_num_records()
     patient_database = open('patient_database.txt', 'rb')
     temp_file = open('temp_file.txt', 'wb')
-    for i in range(0, record):
+    patient_info = pickle.load(patient_database)
+    while patient_info:
         try:
-            patient_info = pickle.load(patient_database)
             if patient_info['Patient_ID'] == patient_id:
-                set_num_records(record - 1)
+                patient_info = pickle.load(patient_database)
                 continue
             else:
                 pickle.dump(patient_info,temp_file)
+            patient_info = pickle.load(patient_database)
         except EOFError:
             break
     temp_file.close()
     patient_database.close()
-    record = get_num_records()
     patient_database = open('patient_database.txt', 'wb')
     temp_file = open('temp_file.txt', 'rb')
-    for i in range(0, record):
+    patient_info = pickle.load(temp_file)
+    while patient_info:
         try:
-            patient_info = pickle.load(temp_file)
             pickle.dump(patient_info,patient_database)
+            patient_info = pickle.load(temp_file)
         except EOFError:
             break
     temp_file.close()
@@ -97,12 +88,11 @@ def delete_patient(patient_id):
 
 # edit an existing patient using patient ID
 def edit_patient(patient_id):
-    record = get_num_records()
     patient_database = open('patient_database.txt', 'rb')
     temp_file = open('temp_file.txt', 'wb')
-    for i in range(0, record):
+    patient_info = pickle.load(patient_database)
+    while patient_info:
         try:
-            patient_info = pickle.load(patient_database)
             if patient_info['Patient_ID'] == patient_id:
                 patient_info['Department_Name'] = input('Edit Department Name :')
                 patient_info['Doctor_Name'] = input('Edit Doctor Name :')
@@ -124,17 +114,18 @@ def edit_patient(patient_id):
                 continue
             else:
                 pickle.dump(patient_info, temp_file)
+            patient_info = pickle.load(patient_database)
         except EOFError:
             break
     temp_file.close()
     patient_database.close()
-    record = get_num_records()
     patient_database = open('patient_database.txt', 'wb')
     temp_file = open('temp_file.txt', 'rb')
-    for i in range(0, record):
+    patient_info = pickle.load(temp_file)
+    while patient_info:
         try:
-            patient_info = pickle.load(temp_file)
             pickle.dump(patient_info, patient_database)
+            patient_info = pickle.load(temp_file)
         except EOFError:
             break
     temp_file.close()
@@ -142,38 +133,31 @@ def edit_patient(patient_id):
 
 # Display all the patients in the database
 def display_patients():
-    record = get_num_records()
     patient_database = open('patient_database.txt', 'rb')
-    for i in range (0,record):
+    patient_info = pickle.load(patient_database)
+    while patient_info:
         try:
-            patient_info = pickle.load(patient_database)
             print(patient_info)
+            patient_info = pickle.load(patient_database)
         except EOFError:
             break
 
 #display a single patient according to ID
 def display_patient(patient_id):
     state = search_for_id(patient_id)
-    record = get_num_records()
     patient_database = open('patient_database.txt', 'rb')
+    patient_info = pickle.load(patient_database)
     if state:
-        for i in range(0, record):
+        while patient_info:
             try:
-                patient_info = pickle.load(patient_database)
                 if patient_info['Patient_ID'] == patient_id:
                     print(patient_info)
                     break
+                patient_info = pickle.load(patient_database)
             except EOFError:
                 break
     else :
         print('There is no patients with this ID .')
-
-def display_temp():
-    record = get_num_records()
-    temp_file = open('temp_file.txt', 'rb')
-    for i in range (0,record):
-        patient_info = pickle.load(temp_file)
-        print(patient_info)
 
 def manage_patients():
     print('--------------------------------------------------------------')

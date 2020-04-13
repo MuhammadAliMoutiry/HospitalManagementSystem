@@ -1,4 +1,6 @@
 import patients
+import doctors
+import appointments
 
 def select_mode():
     print('-------------------------')
@@ -50,7 +52,7 @@ def admin_mode():
 
 
 
-patients.manage_patients()
+
 # hospital_management_system():
 
 
@@ -58,6 +60,5 @@ patients.manage_patients()
 
 
 
-
-
-#hospital_management_system()
+while True:
+    appointments.manage_appointments()
