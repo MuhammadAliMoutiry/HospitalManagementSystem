@@ -178,7 +178,7 @@ def manage_patients():
         print('--------------------------------------------------------------')
         print('6 - Search For a Patient ID')
         print('--------------------------------------------------------------')
-        print('Pess E or e to exit .... .... .... ')
+        print('Pess E or e to exit to main window.... .... .... ')
         print('--------------------------------------------------------------')
         print('Press The Number of Your Choice  :   ')
         print('--------------------------------------------------------------')

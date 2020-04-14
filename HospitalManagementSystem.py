@@ -122,15 +122,15 @@ def hospital_management_system():
     print('$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$\n')
     print('               WELCOME TO HOSPITAL MANAGEMENT SYSTEM\n')
     print('$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$\n')
-    mode = select_mode()
     check = True
     while check:
+        mode = select_mode()
         if mode == 1:
             admin_mode()
         elif mode == 2:
             user_mode()
         print('--------------------------------------')
-        print('Press E or e to exit ... ')
+        print('Press E or e to exit program or any key to continue... ')
         print('--------------------------------------')
         choice = input('Your choice is')
         if choice == 'E':

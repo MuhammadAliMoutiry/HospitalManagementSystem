@@ -177,7 +177,7 @@ def manage_doctors():
         print('--------------------------------------------------------------')
         print('6 - Search For a Doctor ID')
         print('--------------------------------------------------------------')
-        print('Press E or e to Exit ... ... ... ')
+        print('Press E or e to Exit to main window... ... ... ')
         print('--------------------------------------------------------------')
         print('Press The Number of Your Choice  :   ')
         print('--------------------------------------------------------------')
