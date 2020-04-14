@@ -45,20 +45,103 @@ def password_check():
 
 
 def admin_mode():
-    password_check_result =password_check()
+    password_check_result = password_check()
     if not password_check_result:
         select_mode()
+    else:
+        check = True
+        while check:
+            print('------------------------------------------')
+            print('-------------WELCOME ADMIN----------------')
+            print('------------------------------------------')
+            print('1 - MANAGE PATIENTS                      |')
+            print('------------------------------------------')
+            print('2 - MANAGE DOCTORS')
+            print('------------------------------------------')
+            print('3 - MANAGE APPOINTMENTS')
+            print('------------------------------------------')
+            print('Press E or e to exit ... .... ...  ')
+            print('------------------------------------------')
+            choice = input('Enter the number of your choice : ')
+            if choice == '1':
+                patients.manage_patients()
+            elif choice == '2':
+                doctors.manage_doctors()
+            elif choice == '3':
+                appointments.manage_appointments()
+            elif choice == 'E':
+                check = False
+            elif choice == 'e':
+                check = False
+            else:
+                print('#############################################')
+                print('Wrong Entry ....')
+                print('#############################################')
+
+def user_mode():
+    check = True
+    while check:
+        print('------------------------------------------')
+        print('-------------WELCOME USER-----------------')
+        print('------------------------------------------')
+        print('1 - VIEW ALL DEPARTMENTS                 |')
+        print('------------------------------------------')
+        print('2 - VIEW ALL DOCTORS')
+        print('------------------------------------------')
+        print('3 - VIEW ALL PATIENTS')
+        print('------------------------------------------')
+        print('4 - VIEW PATIENT WITH ID')
+        print('------------------------------------------')
+        print('5 - VIEW DOCTOR WITH ID')
+        print('------------------------------------------')
+        print('Press E or e to exit ... .... ...  ')
+        print('------------------------------------------')
+        choice = input('Enter the number of your choice : ')
+        if choice == '1':
+            doctors.display_departments()
+        elif choice == '2':
+            doctors.display_doctors()
+        elif choice == '3':
+            patients.display_patients()
+        elif choice == '4':
+            patient_id = input('Enter Patient ID :: ')
+            patients.display_patient(patient_id)
+        elif choice == '5':
+            doctor_id = input('Enter Doctor ID :: ')
+            doctors.display_doctor(doctor_id)
+        elif choice == 'E':
+            check = False
+        elif choice == 'e':
+            check = False
+        else:
+            print('#############################################')
+            print('Wrong Entry ....')
+            print('#############################################')
+
+def hospital_management_system():
+    print('$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$\n')
+    print('               WELCOME TO HOSPITAL MANAGEMENT SYSTEM\n')
+    print('$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$\n')
+    mode = select_mode()
+    check = True
+    while check:
+        if mode == 1:
+            admin_mode()
+        elif mode == 2:
+            user_mode()
+        print('--------------------------------------')
+        print('Press E or e to exit ... ')
+        print('--------------------------------------')
+        choice = input('Your choice is')
+        if choice == 'E':
+            check = False
+        elif choice == 'e':
+            check = False
+
+
+
+hospital_management_system()
 
 
 
 
-
-# hospital_management_system():
-
-
-
-
-
-
-while True:
-    appointments.manage_appointments()

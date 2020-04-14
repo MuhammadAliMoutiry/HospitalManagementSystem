@@ -160,39 +160,51 @@ def display_patient(patient_id):
         print('There is no patients with this ID .')
 
 def manage_patients():
-    print('--------------------------------------------------------------')
-    print('---------------------- Welcome Admin -------------------------')
-    print('********************* MANAGE PATIENTS ************************')
-    print('--------------------------------------------------------------')
-    print('1 - Add a New Patient')
-    print('--------------------------------------------------------------')
-    print('2 - Delete an Existing Patient')
-    print('--------------------------------------------------------------')
-    print('3 - Edit an Existing Patient')
-    print('--------------------------------------------------------------')
-    print('4 - Display an Existing Patient')
-    print('--------------------------------------------------------------')
-    print('5 - Display Patients Details')
-    print('--------------------------------------------------------------')
-    print('6 - Search For a Patient ID')
-    print('--------------------------------------------------------------')
-    print('Press The Number of Your Choice  :   ')
-    print('--------------------------------------------------------------')
-    choice = input()
-    if choice == '1':
-        add_patient()
-    elif choice == '2':
-        patient_id = input('Enter Patient ID to delete ......')
-        delete_patient(patient_id)
-    elif choice == '3':
-        patient_id = input('Enter Patient ID to Edit ......')
-        edit_patient(patient_id)
-    elif choice == '4':
-        patient_id = input('Enter Patient ID to Display ......')
-        display_patient(patient_id)
-    elif choice == '5':
-        display_patients()
-    elif choice == '6':
-        patient_id = input('Enter Patient ID to Search for......')
-        search_for_id(patient_id)
+    check = True
+    while check:
+        print('--------------------------------------------------------------')
+        print('---------------------- Welcome Admin -------------------------')
+        print('********************* MANAGE PATIENTS ************************')
+        print('--------------------------------------------------------------')
+        print('1 - Add a New Patient')
+        print('--------------------------------------------------------------')
+        print('2 - Delete an Existing Patient')
+        print('--------------------------------------------------------------')
+        print('3 - Edit an Existing Patient')
+        print('--------------------------------------------------------------')
+        print('4 - Display an Existing Patient')
+        print('--------------------------------------------------------------')
+        print('5 - Display Patients Details')
+        print('--------------------------------------------------------------')
+        print('6 - Search For a Patient ID')
+        print('--------------------------------------------------------------')
+        print('Pess E or e to exit .... .... .... ')
+        print('--------------------------------------------------------------')
+        print('Press The Number of Your Choice  :   ')
+        print('--------------------------------------------------------------')
+        choice = input()
+        if choice == '1':
+            add_patient()
+        elif choice == '2':
+            patient_id = input('Enter Patient ID to delete ......')
+            delete_patient(patient_id)
+        elif choice == '3':
+            patient_id = input('Enter Patient ID to Edit ......')
+            edit_patient(patient_id)
+        elif choice == '4':
+            patient_id = input('Enter Patient ID to Display ......')
+            display_patient(patient_id)
+        elif choice == '5':
+            display_patients()
+        elif choice == '6':
+            patient_id = input('Enter Patient ID to Search for......')
+            search_for_id(patient_id)
+        elif choice == 'E':
+            check = False
+        elif choice == 'e':
+            check = False
+        else:
+            print('#############################################')
+            print('Wrong Entry ....')
+            print('#############################################')
 

@@ -110,7 +110,6 @@ def edit_doctor(doctor_id):
     temp_file.close()
     doctor_database.close()
 
-
 # Display all the doctors in the database
 def display_doctors():
     doctor_database = open('doctor_database.txt', 'rb')
@@ -142,45 +141,74 @@ def display_doctor(doctor_id):
     else:
         print('There is no doctors with this ID .')
 
+def display_departments():
+    departments_names = []
+    doctor_database = open('doctor_database.txt', 'r')
+    temp = doctor_database.readline()
+    doctor_database.close()
+    if temp:
+        doctor_database = open('doctor_database.txt', 'rb')
+        doctor_info = pickle.load(doctor_database)
+        while doctor_info:
+            try:
+                departments_names.append(doctor_info['Department_Name'])
+                doctor_info = pickle.load(doctor_database)
+            except EOFError:
+                doctor_database.close()
+                break
+    print(list(set(departments_names)))
+
 def manage_doctors():
-    print('--------------------------------------------------------------')
-    print('---------------------- Welcome Admin -------------------------')
-    print('********************** MANAGE DOCTORS ************************')
-    print('--------------------------------------------------------------')
-    print('1 - Add a New Doctor')
-    print('--------------------------------------------------------------')
-    print('2 - Delete an Existing Doctor')
-    print('--------------------------------------------------------------')
-    print('3 - Edit an Existing Doctor')
-    print('--------------------------------------------------------------')
-    print('4 - Display an Existing Doctor')
-    print('--------------------------------------------------------------')
-    print('5 - Display Doctor Details')
-    print('--------------------------------------------------------------')
-    print('6 - Search For a Doctor ID')
-    print('--------------------------------------------------------------')
-    print('Press The Number of Your Choice  :   ')
-    print('--------------------------------------------------------------')
-    choice = input()
-    if choice == '1':
-        add_doctor()
-    elif choice == '2':
-        doctor_id = input('Enter Doctor ID to delete ......')
-        delete_doctor(doctor_id)
-    elif choice == '3':
-        doctor_id = input('Enter Doctor ID to Edit ......')
-        edit_doctor(doctor_id)
-    elif choice == '4':
-        doctor_id = input('Enter Doctor ID to Display ......')
-        display_doctor(doctor_id)
-    elif choice == '5':
-        display_doctors()
-    elif choice == '6':
-        doctor_id = input('Enter Doctor ID to Search for......')
-        if search_for_id(doctor_id):
-            print('ID exists in the database')
+    check = True
+    while check:
+        print('--------------------------------------------------------------')
+        print('---------------------- Welcome Admin -------------------------')
+        print('********************** MANAGE DOCTORS ************************')
+        print('--------------------------------------------------------------')
+        print('1 - Add a New Doctor')
+        print('--------------------------------------------------------------')
+        print('2 - Delete an Existing Doctor')
+        print('--------------------------------------------------------------')
+        print('3 - Edit an Existing Doctor')
+        print('--------------------------------------------------------------')
+        print('4 - Display an Existing Doctor')
+        print('--------------------------------------------------------------')
+        print('5 - Display Doctor Details')
+        print('--------------------------------------------------------------')
+        print('6 - Search For a Doctor ID')
+        print('--------------------------------------------------------------')
+        print('Press E or e to Exit ... ... ... ')
+        print('--------------------------------------------------------------')
+        print('Press The Number of Your Choice  :   ')
+        print('--------------------------------------------------------------')
+        choice = input()
+        if choice == '1':
+            add_doctor()
+        elif choice == '2':
+            doctor_id = input('Enter Doctor ID to delete ......')
+            delete_doctor(doctor_id)
+        elif choice == '3':
+            doctor_id = input('Enter Doctor ID to Edit ......')
+            edit_doctor(doctor_id)
+        elif choice == '4':
+            doctor_id = input('Enter Doctor ID to Display ......')
+            display_doctor(doctor_id)
+        elif choice == '5':
+            display_doctors()
+        elif choice == '6':
+            doctor_id = input('Enter Doctor ID to Search for......')
+            if search_for_id(doctor_id):
+                print('ID exists in the database')
+            else:
+                print('ID does not exist in the database')
+        elif choice == 'E':
+            check = False
+        elif check == 'e':
+            check = False
         else:
-            print('ID does not exist in the database')
+            print('#############################################')
+            print('Wrong Entry ....')
+            print('#############################################')
 
 
 
